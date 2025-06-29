@@ -2,55 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GTPS25 Host</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center p-6">
-  <h1 class="text-3xl font-bold mb-6">GTPS25 - Host Setup</h1>
+<body class="bg-gray-950 text-white min-h-screen font-sans">
 
-  <!-- Windows Host Download -->
-  <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 w-full max-w-xl text-center">
-    <h2 class="text-xl font-semibold mb-4">Download Windows Host File</h2>
-    <a id="downloadBtn" href="#" download="gtps25_hosts.txt"
-       class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold inline-block">
-      ⬇️ Click to Download
-    </a>
-  </div>
-  <!-- Ptunnel Host Copy -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-4 w-full max-w-xl text-left">
-    <h2 class="text-lg font-semibold mb-2">Power Tunnel Host</h2>
-    <textarea id="PtunnelText" class="w-full bg-gray-700 p-3 rounded text-sm mb-3" rows="4" readonly>https://growsoft.cc/android.txt
-    </textarea>
-    <button onclick="copyText('PtunnelText')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">📋 Copy</button>
-  </div>
-  <!-- macOS Host Copy -->
-  <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-4 w-full max-w-xl text-left">
-    <h2 class="text-lg font-semibold mb-2">macOS Host</h2>
-    <textarea id="macText" class="w-full bg-gray-700 p-3 rounded text-sm mb-3" rows="4" readonly>
+  <!-- Header -->
+  <header class="bg-gray-900 w-full py-6 shadow-md mb-8">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h1 class="text-4xl font-extrabold tracking-wide flex justify-center items-center gap-3">
+        🌐 GTPS25 Host Setup
+      </h1>
+      <p class="text-gray-400 mt-2 text-sm">Set up your host files for different platforms easily</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 grid gap-6">
+    
+    <!-- Download Button -->
+    <section class="bg-gray-800 p-6 rounded-lg shadow-md text-center">
+      <h2 class="text-2xl font-semibold mb-4">Download Windows Host File</h2>
+      <a id="downloadBtn" href="#" download="gtps25_hosts.txt"
+         class="bg-blue-600 hover:bg-blue-700 transition-all px-6 py-3 rounded-full inline-block font-medium">
+        ⬇️ Download Host File
+      </a>
+    </section>
+
+    <!-- Platform Blocks -->
+    <section class="grid md:grid-cols-2 gap-6">
+      
+      <!-- Power Tunnel -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-3">Power Tunnel Host</h2>
+        <textarea id="PtunnelText" class="w-full bg-gray-700 p-3 rounded text-sm" rows="3" readonly>
+https://growsoft.cc/android.txt</textarea>
+        <button onclick="copyText('PtunnelText')" class="mt-3 bg-green-600 hover:bg-green-700 px-4 py-2 rounded transition-all">
+          📋 Copy
+        </button>
+      </div>
+
+      <!-- macOS Host -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-3">macOS Host</h2>
+        <textarea id="macText" class="w-full bg-gray-700 p-3 rounded text-sm" rows="4" readonly>
 91.134.85.13 growtopia1.com
 91.134.85.13 growtopia2.com
 91.134.85.13 www.growtopia1.com
-91.134.85.13 www.growtopia2.com
-    </textarea>
-    <button onclick="copyText('macText')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">📋 Copy</button>
-  </div>
+91.134.85.13 www.growtopia2.com</textarea>
+        <button onclick="copyText('macText')" class="mt-3 bg-green-600 hover:bg-green-700 px-4 py-2 rounded transition-all">
+          📋 Copy
+        </button>
+      </div>
 
-  <!-- Windows Host Copy -->
-  <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-4 w-full max-w-xl text-left">
-    <h2 class="text-lg font-semibold mb-2">Windows Host</h2>
-    <textarea id="windowsText" class="w-full bg-gray-700 p-3 rounded text-sm mb-3" rows="4" readonly>
+      <!-- Windows Host -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-3">Windows Host</h2>
+        <textarea id="windowsText" class="w-full bg-gray-700 p-3 rounded text-sm" rows="4" readonly>
 91.134.85.13 growtopia1.com
 91.134.85.13 growtopia2.com
 91.134.85.13 www.growtopia1.com
-91.134.85.13 www.growtopia2.com
-    </textarea>
-    <button onclick="copyText('windowsText')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">📋 Copy</button>
-  </div>
+91.134.85.13 www.growtopia2.com</textarea>
+        <button onclick="copyText('windowsText')" class="mt-3 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-all">
+          📋 Copy
+        </button>
+      </div>
 
-  <!-- iOS Host Copy -->
-  <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 w-full max-w-xl text-left">
-    <h2 class="text-lg font-semibold mb-2">iOS Host Link</h2>
-    <textarea id="iosText" class="w-full bg-gray-700 p-3 rounded text-sm mb-3" rows="12" readonly>
+      <!-- iOS Host -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-3">iOS Host Link</h2>
+        <textarea id="iosText" class="w-full bg-gray-700 p-3 rounded text-sm" rows="10" readonly>
 [General]
 bypass-system = true
 
@@ -63,29 +85,40 @@ growtopia2.com = 91.134.85.13
 www.growtopia1.com = 91.134.85.13
 www.growtopia2.com = 91.134.85.13
 RvLnd.here = 91.134.85.13</textarea>
-    <button onclick="copyText('iosText')" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">📋 Copy</button>
-  </div>
+        <button onclick="copyText('iosText')" class="mt-3 bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded transition-all">
+          📋 Copy
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 text-center text-sm text-gray-500 pb-6">
+    &copy; 2025 GTPS25. All rights reserved.
+  </footer>
 
   <script>
-    // Host content for download
+    // Downloadable content
     const downloadContent = `91.134.85.13 growtopia1.com
 91.134.85.13 growtopia2.com
 91.134.85.13 www.growtopia1.com
 91.134.85.13 www.growtopia2.com`;
 
-    // Create downloadable blob
+    // Create and attach download link
     const blob = new Blob([downloadContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    document.getElementById("downloadBtn").href = url;
+    document.getElementById("downloadBtn").href = URL.createObjectURL(blob);
 
-    // Copy to clipboard function
+    // Modern clipboard API
     function copyText(id) {
-      const text = document.getElementById(id);
-      text.select();
-      text.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-      alert("Copied to clipboard!");
+      const textArea = document.getElementById(id);
+      navigator.clipboard.writeText(textArea.value).then(() => {
+        alert("Copied to clipboard!");
+      }).catch(err => {
+        console.error('Clipboard copy failed:', err);
+      });
     }
   </script>
+
 </body>
 </html>
