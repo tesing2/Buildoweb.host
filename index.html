@@ -99,14 +99,20 @@
     <div class="form-container">
       <h2>Application Form</h2>
       <form action="https://formsubmit.co/harriepoonin2@gmail.com" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" rows="4" placeholder="Why do you want to apply?" required></textarea>
+        <!-- Labels added so Gmail shows formatted -->
+        <label>Your Name</label>
+        <input type="text" name="Name" placeholder="Your Name" required>
         
-        <!-- To prevent spam -->
+        <label>Your Email</label>
+        <input type="email" name="Email" placeholder="Your Email" required>
+        
+        <label>Application Message</label>
+        <textarea name="Application Message" rows="4" placeholder="Why do you want to apply?" required></textarea>
+        
+        <!-- Disable captcha -->
         <input type="hidden" name="_captcha" value="false">
         <!-- Redirect after submit -->
-        <input type="hidden" name="_next" value="https://testing2.github.io/GTPS25/thankyou.html">
+        <input type="hidden" name="_next" value="https://tesing2.github.io/GTPS25/thankyou.html">
 
         <button type="submit">Submit</button>
       </form>
