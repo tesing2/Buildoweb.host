@@ -58,31 +58,48 @@
     }
     .form-container {
       background: #1a0033;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
+      padding: 25px;
+      border-radius: 12px;
+      width: 350px;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 0 20px #5865f2;
+      text-align: left;
     }
     .form-container h2 {
       margin-bottom: 15px;
+      text-align: center;
       color: #00ccff;
     }
-    .form-container input, .form-container textarea {
+    .form-container label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #ccc;
+    }
+    .form-container input,
+    .form-container textarea {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
+      margin-bottom: 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 0.95em;
     }
     .form-container button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: #5865f2;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       color: white;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 5px;
+    }
+    .close-btn {
+      background: #6600ff !important;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -99,24 +116,42 @@
     <div class="form-container">
       <h2>Application Form</h2>
       <form action="https://formsubmit.co/harriepoonin2@gmail.com" method="POST">
-        <!-- Labels added so Gmail shows formatted -->
-        <label>Your Name</label>
-        <input type="text" name="Name" placeholder="Your Name" required>
         
-        <label>Your Email</label>
-        <input type="email" name="Email" placeholder="Your Email" required>
-        
-        <label>Application Message</label>
-        <textarea name="Application Message" rows="4" placeholder="Why do you want to apply?" required></textarea>
-        
-        <!-- Disable captcha -->
+        <!-- Name -->
+        <label>1. What’s your full name?</label>
+        <input type="text" name="Full Name" placeholder="Enter your name" required>
+
+        <!-- Email -->
+        <label>2. What’s your email?</label>
+        <input type="email" name="Email" placeholder="Enter your email" required>
+
+        <!-- Roles -->
+        <label>3. Which role(s) are you applying for?</label>
+        <input type="checkbox" name="Roles[]" value="Co-Owner"> Co-Owner<br>
+        <input type="checkbox" name="Roles[]" value="Promoter"> Promoter<br>
+        <input type="checkbox" name="Roles[]" value="Manager"> Manager<br>
+        <input type="checkbox" name="Roles[]" value="Discord Manager"> Discord Manager<br>
+        <input type="checkbox" name="Roles[]" value="Event Manager"> Event Manager<br><br>
+
+        <!-- Experience -->
+        <label>4. Do you have any experience related to this role?</label>
+        <textarea name="Experience" rows="3" placeholder="Tell us about your past experience"></textarea>
+
+        <!-- Why -->
+        <label>5. Why should we choose you?</label>
+        <textarea name="Why Choose Me" rows="3" placeholder="Explain why you’d be a great fit" required></textarea>
+
+        <!-- Availability -->
+        <label>6. How many hours per week can you dedicate?</label>
+        <input type="text" name="Availability" placeholder="e.g. 5–10 hours" required>
+
+        <!-- Hidden settings -->
         <input type="hidden" name="_captcha" value="false">
-        <!-- Redirect after submit -->
         <input type="hidden" name="_next" value="https://tesing2.github.io/GTPS25/thankyou.html">
 
-        <button type="submit">Submit</button>
+        <button type="submit">Submit Application</button>
       </form>
-      <button style="margin-top:10px; background:#6600ff;" onclick="document.getElementById('formPopup').style.display='none'">Close</button>
+      <button class="close-btn" onclick="document.getElementById('formPopup').style.display='none'">Close</button>
     </div>
   </div>
 </body>
