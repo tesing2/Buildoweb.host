@@ -3,156 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon</title>
+  <title>Application Form</title>
   <style>
     body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
       margin: 0;
       padding: 0;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #0f0f1f, #1a0033);
-      font-family: Arial, sans-serif;
-      color: #fff;
-      text-align: center;
+      min-height: 100vh;
     }
-    h1 {
-      font-size: 3em;
-      color: #00ccff;
-      text-shadow: 0 0 15px #00ccff, 0 0 30px #6600ff;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.2em;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 25px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #fff;
-      background: linear-gradient(90deg, #5865f2, #4e5d94);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 0 15px #5865f2;
-      transition: transform 0.2s, box-shadow 0.3s;
-      margin: 10px;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #5865f2;
-    }
-    #formPopup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
+
     .form-container {
-      background: #1a0033;
-      padding: 25px;
+      background: #ffffff;
       border-radius: 12px;
-      width: 350px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 0 20px #5865f2;
-      text-align: left;
+      padding: 30px 25px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.4s ease-in-out;
     }
-    .form-container h2 {
-      margin-bottom: 15px;
+
+    h2 {
       text-align: center;
-      color: #00ccff;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
     }
-    .form-container label {
+
+    label {
+      font-weight: 600;
+      color: #444;
       display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
-      color: #ccc;
+      margin: 12px 0 6px;
     }
-    .form-container input,
-    .form-container textarea {
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.95em;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.2s ease-in-out;
+      font-size: 14px;
     }
-    .form-container button {
-      width: 100%;
-      padding: 12px;
-      background: #5865f2;
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border: 1px solid #4e54c8;
+    }
+
+    textarea {
+      resize: none;
+      min-height: 80px;
+    }
+
+    .checkbox-group {
+      margin: 10px 0;
+      padding-left: 10px;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px 16px;
+      margin: 0 5px;
       border: none;
       border-radius: 8px;
-      color: white;
+      background: #4e54c8;
+      color: #fff;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 5px;
+      transition: background 0.3s;
     }
-    .close-btn {
-      background: #6600ff !important;
-      margin-top: 10px;
+
+    .btn:hover {
+      background: #3a3fa0;
+    }
+
+    .btn.close {
+      background: #aaa;
+    }
+
+    .btn.close:hover {
+      background: #888;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1 class="glow">COMING SOON</h1>
-    <p>We’re launching on <strong>Discord</strong> first!</p>
-    <a href="https://discord.gg/WHBd6PG7q3" target="_blank" class="btn">Join Our Discord</a>
-    <button class="btn" onclick="document.getElementById('formPopup').style.display='flex'">Apply Now</button>
+  <div class="form-container">
+    <h2>Application Form</h2>
+    <form id="applicationForm">
+      <label for="name">1. What’s your full name?</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="email">2. What’s your email?</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label>3. Which role(s) are you applying for?</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="role" value="Co-Owner"> Co-Owner</label>
+        <label><input type="checkbox" name="role" value="Promoter"> Promoter</label>
+        <label><input type="checkbox" name="role" value="Manager"> Manager</label>
+        <label><input type="checkbox" name="role" value="Discord Manager"> Discord Manager</label>
+        <label><input type="checkbox" name="role" value="Event Manager"> Event Manager</label>
+      </div>
+
+      <label for="experience">4. Do you have any experience related to this role?</label>
+      <textarea id="experience" name="experience" placeholder="Tell us about your past experience"></textarea>
+
+      <label for="why">5. Why should we choose you?</label>
+      <textarea id="why" name="why" placeholder="Explain why you’d be a great fit"></textarea>
+
+      <label for="hours">6. How many hours per week can you dedicate?</label>
+      <input type="text" id="hours" name="hours" placeholder="e.g. 5-10 hours">
+
+      <div class="btn-container">
+        <button type="submit" class="btn">Submit Application</button>
+        <button type="button" class="btn close" onclick="window.close()">Close</button>
+      </div>
+    </form>
   </div>
 
-  <!-- Popup Form -->
-  <div id="formPopup">
-    <div class="form-container">
-      <h2>Application Form</h2>
-      <form action="https://formsubmit.co/harriepoonin2@gmail.com" method="POST">
-        
-        <!-- Name -->
-        <label>1. What’s your full name?</label>
-        <input type="text" name="Full Name" placeholder="Enter your name" required>
-
-        <!-- Email -->
-        <label>2. What’s your email?</label>
-        <input type="email" name="Email" placeholder="Enter your email" required>
-
-        <!-- Roles -->
-        <label>3. Which role(s) are you applying for?</label>
-        <input type="checkbox" name="Roles[]" value="Co-Owner"> Co-Owner<br>
-        <input type="checkbox" name="Roles[]" value="Promoter"> Promoter<br>
-        <input type="checkbox" name="Roles[]" value="Manager"> Manager<br>
-        <input type="checkbox" name="Roles[]" value="Discord Manager"> Discord Manager<br>
-        <input type="checkbox" name="Roles[]" value="Event Manager"> Event Manager<br><br>
-
-        <!-- Experience -->
-        <label>4. Do you have any experience related to this role?</label>
-        <textarea name="Experience" rows="3" placeholder="Tell us about your past experience"></textarea>
-
-        <!-- Why -->
-        <label>5. Why should we choose you?</label>
-        <textarea name="Why Choose Me" rows="3" placeholder="Explain why you’d be a great fit" required></textarea>
-
-        <!-- Availability -->
-        <label>6. How many hours per week can you dedicate?</label>
-        <input type="text" name="Availability" placeholder="e.g. 5–10 hours" required>
-
-        <!-- Hidden settings -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://tesing2.github.io/GTPS25/thankyou.html">
-
-        <button type="submit">Submit Application</button>
-      </form>
-      <button class="close-btn" onclick="document.getElementById('formPopup').style.display='none'">Close</button>
-    </div>
-  </div>
+  <script>
+    document.getElementById("applicationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Your application has been submitted successfully!");
+      this.reset();
+    });
+  </script>
 </body>
 </html>
