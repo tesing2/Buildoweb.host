@@ -1,169 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Form</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coming Soon — GTPS25</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4e54c8, #8f94fb);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    :root{
+      --bg1:#0f0f1f;
+      --bg2:#1a0033;
+      --accent1:#5865f2;
+      --accent2:#7b4ef5;
+      --card:#ffffff;
+      --muted:#666;
     }
 
-    .form-container {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 30px 25px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      animation: fadeIn 0.4s ease-in-out;
+    /* Page / hero */
+    html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Arial, sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#fff}
+    .center {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
     }
-
-    h2 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
-      font-size: 1.5rem;
+    .card-hero{
+      text-align:center;
+      max-width:960px;
+      width:100%;
     }
-
-    label {
-      font-weight: 600;
-      color: #444;
-      display: block;
-      margin: 12px 0 6px;
+    h1{
+      margin:0 0 6px;
+      font-size:2.6rem;
+      color:#00ccff;
+      text-shadow:0 0 18px rgba(0,204,255,0.12);
     }
+    p.lead{margin:0 0 18px;color:#d0cfe8;font-size:1.05rem}
 
+    /* Buttons */
+    .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;
+      color:#fff;border:0;cursor:pointer;
+      box-shadow:0 8px 20px rgba(0,0,0,0.35);
+    }
+    .btn-discord{background:linear-gradient(90deg,#5865f2,#4e5d94)}
+    .btn-apply{background:linear-gradient(90deg,#7b4ef5,#5f3dc4)}
+
+    /* Overlay & modal */
+    #formOverlay{
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.65);
+      align-items:center;justify-content:center;
+      z-index:9999;padding:20px;
+    }
+    .modal{
+      width:min(420px,100%);
+      background:var(--card);
+      color:#222;
+      border-radius:12px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.45);
+      padding:20px 18px;
+      max-height:92vh;
+      overflow:auto;
+    }
+    .modal h2{
+      margin:0 0 10px;text-align:center;color:#3b2a9b;
+    }
+    .muted{color:var(--muted);font-size:0.95rem}
+
+    form label{display:block;margin-top:12px;font-weight:600;color:#333;font-size:0.95rem}
     input[type="text"],
     input[type="email"],
-    textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-      transition: border 0.2s ease-in-out;
-      font-size: 14px;
+    textarea{
+      width:100%;
+      padding:10px 12px;
+      margin-top:6px;
+      border-radius:8px;
+      border:1px solid #e6e6e9;
+      font-size:14px;
+      box-sizing:border-box;
+      resize:vertical;
     }
+    input:focus, textarea:focus{outline:none;border:1px solid #6b53e8;box-shadow:0 4px 18px rgba(107,83,232,0.12)}
 
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus {
-      border: 1px solid #4e54c8;
+    /* roles: grid of small cards for each checkbox */
+    .checkbox-grid{
+      margin-top:8px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:8px;
     }
-
-    textarea {
-      resize: none;
-      min-height: 80px;
+    .role-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 10px;
+      border-radius:8px;
+      background:#fbfbfd;
+      border:1px solid #f0eef6;
+      cursor:pointer;
+      user-select:none;
+      transition:box-shadow .12s,transform .08s;
     }
+    .role-item input{transform:scale(1.1);margin:0}
+    .role-item:hover{box-shadow:0 6px 18px rgba(50,40,130,0.08);transform:translateY(-2px)}
 
-    .checkbox-group {
-      margin: 10px 0;
-      padding-left: 10px;
+    /* buttons inside modal */
+    .modal .actions-modal{display:flex;gap:10px;margin-top:16px}
+    .modal .primary{
+      flex:1;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;border:0;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer;
     }
-
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      font-weight: normal;
-      margin: 5px 0;
-      cursor: pointer;
+    .modal .secondary{
+      background:#efefef;color:#333;border:0;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700;
     }
+    .modal .secondary:hover{background:#e0e0e0}
 
-    .checkbox-group input {
-      margin-right: 10px;
-      transform: scale(1.2);
-    }
-
-    .btn-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 10px 16px;
-      margin: 0 5px;
-      border: none;
-      border-radius: 8px;
-      background: #4e54c8;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background: #3a3fa0;
-    }
-
-    .btn.close {
-      background: #aaa;
-    }
-
-    .btn.close:hover {
-      background: #888;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* small screens tweaks */
+    @media (max-width:420px){
+      h1{font-size:2rem}
+      .modal{padding:16px}
+      label{font-size:0.9rem}
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Application Form</h2>
-    <form id="applicationForm">
-      <label for="name">1. What’s your full name?</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+  <div class="center">
+    <div class="card-hero">
+      <h1>COMING SOON</h1>
+      <p class="lead">We’re launching on Discord first — join the server and apply to help run the community.</p>
 
-      <label for="email">2. What’s your email?</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <div class="actions">
+        <a class="btn btn-discord" href="https://discord.gg/WHBd6PG7q3" target="_blank" rel="noopener">
+          Join Our Discord
+        </a>
 
-      <label>3. Which role(s) are you applying for?</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="role" value="Co-Owner"> Co-Owner</label>
-        <label><input type="checkbox" name="role" value="Promoter"> Promoter</label>
-        <label><input type="checkbox" name="role" value="Manager"> Manager</label>
-        <label><input type="checkbox" name="role" value="Discord Manager"> Discord Manager</label>
-        <label><input type="checkbox" name="role" value="Event Manager"> Event Manager</label>
+        <button class="btn btn-apply" type="button" onclick="openForm()">Apply Now</button>
       </div>
+    </div>
+  </div>
 
-      <label for="experience">4. Do you have any experience related to this role?</label>
-      <textarea id="experience" name="experience" placeholder="Tell us about your past experience"></textarea>
+  <!-- Form overlay -->
+  <div id="formOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="appFormTitle">
+      <h2 id="appFormTitle">Application Form</h2>
 
-      <label for="why">5. Why should we choose you?</label>
-      <textarea id="why" name="why" placeholder="Explain why you’d be a great fit"></textarea>
+      <!-- NOTE: this posts directly to your Gmail via FormSubmit -->
+      <form action="https://formsubmit.co/harriepoonin2@gmail.com" method="POST">
+        <!-- 1 -->
+        <label for="fullName">1. What’s your full name?</label>
+        <input id="fullName" name="Full Name" type="text" placeholder="Enter your full name" required>
 
-      <label for="hours">6. How many hours per week can you dedicate?</label>
-      <input type="text" id="hours" name="hours" placeholder="e.g. 5-10 hours">
+        <!-- 2 -->
+        <label for="emailAddr">2. What’s your email?</label>
+        <input id="emailAddr" name="Email" type="email" placeholder="example@mail.com" required>
 
-      <div class="btn-container">
-        <button type="submit" class="btn">Submit Application</button>
-        <button type="button" class="btn close" onclick="window.close()">Close</button>
-      </div>
-    </form>
+        <!-- 3 Roles -->
+        <label>3. Which role(s) are you applying for?</label>
+        <div class="checkbox-grid" role="group" aria-label="Roles to apply for">
+          <label class="role-item" for="role-coowner">
+            <input id="role-coowner" type="checkbox" name="Roles[]" value="Co-Owner">
+            <span>Co-Owner</span>
+          </label>
+
+          <label class="role-item" for="role-promoter">
+            <input id="role-promoter" type="checkbox" name="Roles[]" value="Promoter">
+            <span>Promoter</span>
+          </label>
+
+          <label class="role-item" for="role-manager">
+            <input id="role-manager" type="checkbox" name="Roles[]" value="Manager">
+            <span>Manager</span>
+          </label>
+
+          <label class="role-item" for="role-discord">
+            <input id="role-discord" type="checkbox" name="Roles[]" value="Discord Manager">
+            <span>Discord Manager</span>
+          </label>
+
+          <label class="role-item" for="role-event">
+            <input id="role-event" type="checkbox" name="Roles[]" value="Event Manager">
+            <span>Event Manager</span>
+          </label>
+        </div>
+
+        <!-- 4 -->
+        <label for="experience">4. Do you have any experience related to this role?</label>
+        <textarea id="experience" name="Experience" placeholder="Tell us briefly about your past experience" rows="3"></textarea>
+
+        <!-- 5 -->
+        <label for="why">5. Why should we choose you?</label>
+        <textarea id="why" name="Why Choose Me" placeholder="Explain why you'd be a great fit" rows="3" required></textarea>
+
+        <!-- 6 -->
+        <label for="hours">6. How many hours per week can you dedicate?</label>
+        <input id="hours" name="Availability" type="text" placeholder="e.g. 5–10 hours" required>
+
+        <!-- FormSubmit hidden fields -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://tesing2.github.io/GTPS25/thankyou.html">
+
+        <!-- Buttons -->
+        <div class="actions-modal">
+          <button type="submit" class="primary">Submit Application</button>
+          <button type="button" class="secondary" onclick="closeForm()">Close</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
-    document.getElementById("applicationForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Your application has been submitted successfully!");
-      this.reset();
+    const overlay = document.getElementById('formOverlay');
+
+    function openForm(){
+      overlay.style.display = 'flex';
+      overlay.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // focus first input for accessibility
+      setTimeout(()=> document.getElementById('fullName').focus(), 120);
+    }
+
+    function closeForm(){
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    // close on ESC
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && overlay.style.display === 'flex') closeForm();
+    });
+
+    // close when clicking outside modal
+    overlay.addEventListener('click', (e)=>{
+      if(e.target === overlay) closeForm();
     });
   </script>
 </body>
